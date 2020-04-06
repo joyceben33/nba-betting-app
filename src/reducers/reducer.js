@@ -1,9 +1,7 @@
 import {List} from 'immutable';
 
-const initialState = {
-    gameId: '',
-    
-}
+let id = 0;
+const initialState = { items:List([])}
 
 const reducer = (state=initialState, action) => {
   switch (action.type) {

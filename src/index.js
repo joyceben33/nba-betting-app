@@ -18,11 +18,12 @@ const store = createStore(reducer, applyMiddleware(thunk));
 
 
 ReactDOM.render(
-  <Provider store={store}>
+  // <Provider store={store}>
     {/* <MuiThemeProvider> */}
       <App />
     {/* </MuiThemeProvider> */}
-  </Provider>,
+  // </Provider>
+  ,
   document.getElementById('root')
 );
 

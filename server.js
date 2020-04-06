@@ -2,8 +2,8 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
-const keys = require('./config/keys');
 const app = express();
+import config from './config/config'
 //Import Schemas from models folder
 const Game = require('./models/game');
 const Play = require('./models/play');
@@ -16,10 +16,24 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 
+/////// Middleware ////////
+app.use(express.static(__dirname));
+
+
+ // send the user to index html page despite of the url
+ app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'index.html'));
+}); 
+
+//////// Error Handler /////
+app.use(function (res, req, res, next) {
+    res.status(err.status || 500)
+})
+
 // MONGOOSE CONNECT
 // ===========================================================================
 // mongoose.connect(keys.MONGODB_URI);
-mongoose.connect('mongodb://localhost/bettingApp')
+mongoose.connect(config.mongoUri,'mongodb://localhost/bettingApp')
 
 const db = mongoose.connection
 db.on('error', ()=> {console.log( '---User FAILED to connect to mongoose')})
@@ -42,20 +56,20 @@ server.listen(port, () => {console.log("+++User Express Server with Socket Runni
 /***************************************************************************************** */
 /* Conditions for production														   */
 /***************************************************************************************** */
-if (process.env.NODE_ENV === 'production') {
-    // Express will serve up production assets
-    // like our main.js file, or main.css file!
-    app.use(express.static('client/build'));
+// if (process.env.NODE_ENV === 'production') {
+//     // Express will serve up production assets
+//     // like our main.js file, or main.css file!
+//     app.use(express.static('client/build'));
 
-    // Express will serve up the index.html file
-    // if it doesn't recognize the route
-    const path = require('path');
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
-}
+//     // Express will serve up the index.html file
+//     // if it doesn't recognize the route
+//     const path = require('path');
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+//     });
+// }
 
-  
+
 
 
 

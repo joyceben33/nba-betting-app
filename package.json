@@ -13,7 +13,7 @@
   "devDependencies": {
     "babel-core": "^6.21.0",
     "babel-cli": "^6.22.2",
-    "babel-loader": "^6.2.10",
+    "babel-loader": "^9.1.0",
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-2": "6.24.1",
